@@ -1,10 +1,9 @@
 ---
-# SPDX-FileCopyrightText: CrazyMax
 # SPDX-FileCopyrightText: Jürgen Mülbert
 #
 # SPDX-License-Identifier: MIT
 #
-name: 'GitHub Labeler'
+name: 'Pull Request Actions'
 
 on:
   workflow_call:
@@ -27,3 +26,13 @@ jobs:
       with:
         repo-token: ${{ secrets.token }}
         configuration-path: ${{ inputs.config-path }}
+  
+  auto-approve:
+     runs-on: ubuntu-latest
+     permissions:
+       pull-requests: write
+     steps:
+      - uses: hmarr/auto-approve-action@v3
+        if: github.actor == 'dependabot[bot]'
+        with:
+          github-token: ${{ secrets.token }} 
