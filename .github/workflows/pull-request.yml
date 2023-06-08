@@ -36,3 +36,11 @@ jobs:
         if: github.actor == 'dependabot[bot]'
         with:
           github-token: ${{ secrets.token }} 
+
+  lint-pr-title:
+    name: Validate PR title
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@v5
+        env:
+          github-token: ${{ secrets.token }} 
